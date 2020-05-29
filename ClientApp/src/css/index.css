@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+}
+
+
+main,
+nav ul {
+    padding: 0 15%;
+}
+
+
+a[href] {
+    text-decoration: none !important;
+}
+
+
+.flex {
+    display: flex;
+
+    align-content: center;
+    align-items: center;
+}
+.flex.center {
+    justify-content: center;
+}
+.flex.space-between {
+    justify-content: space-between;
+}
+
+
+table.all-width {
+    width: 100%;
+}
+table,
+table td,
+table th {
+    width: 33.3%;
+
+    padding: 30px 60px;
+
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table td,
+table th {
+    text-align: left;
+}
+table th {
+    font-size: 1.5em;
+}
+table td:not(:last-child) {
+    font-size: 1.2em;
+}
+
+
+.tm {
+    margin-top: 10px;
+}
+.rm {
+    margin-right: 10px;
+}
+.bm {
+    margin-bottom: 10px;
+}
+.lm {
+    margin-left: 10px;
+}
+.am {
+    margin: 10px;
+}
+
+a.button,
+button {
+    display: inline-block;
+
+    padding: 15px 20px;
+
+    border: 1px solid black;
+    border-radius: 3px;
+
+    color: black;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+button:hover,
+a.button:hover {
+    background-color: black;
+    color: white;
+
+    transform: scale(1.1);
+}
+button.red,
+a.button.red {
+    border-color: red;
+    color: red;
+}
+button.red:hover,
+a.button.red:hover {
+    background-color: red;
+    color: white;
+}
+button.green,
+a.button.green {
+    border-color: green;
+    color: green;
+}
+button.green:hover,
+a.button.green:hover {
+    background-color: green;
+    color: white;
+}
+button.blue,
+a.button.blue {
+    border-color: blue;
+    color: blue;
+}
+button.blue:hover,
+a.button.blue:hover {
+    background-color: blue;
+    color: white;
+}
+
+/*
+
+@media only screen and (max-width: 1000px) {
+    button,
+    a.button {
+        display: block;
+    }
+}
+
+*/
+
+
+form input {
+    margin: 20px 0;
+    padding: 15px 20px;
+
+    width: 300px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    transition: .3s;
+}
+form input:hover:not(:focus) {
+    transform: scale(1.05);
+}

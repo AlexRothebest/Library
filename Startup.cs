@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+
+using Kursach.Models;
 
 namespace Kursach
 {
@@ -20,6 +23,7 @@ namespace Kursach
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDBContext>(option => option.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
 
