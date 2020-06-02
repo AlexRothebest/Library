@@ -20,7 +20,7 @@ class CreateBook extends Component {
             name: name,
             author: author
         }).then(response => {
-            console.log(response);
+            if (!response) return;
 
             this.setState({
                 isFormSubmitted: true

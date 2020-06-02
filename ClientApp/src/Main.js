@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Navbar from './components/NavBar';
 
@@ -12,6 +13,14 @@ class Main extends Component {
 		)
 	}
 }
+
+
+axios.interceptors.response.use(
+	response => response ? response : null,
+	error => {
+		alert('Error occured');
+	}
+);
 
 
 export default Main;

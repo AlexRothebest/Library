@@ -23,6 +23,8 @@ class EditBook extends Component {
             name: name,
             author: author
         }).then(response => {
+            if (!response) return;
+
             console.log(response);
 
             this.setState({
@@ -32,7 +34,9 @@ class EditBook extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`/api/books/${this.props.match.params.bookId}`).then(response => {
+        axios.post(`/api/books/${this.props.match.params.bookId}`).then(response => {
+            if (!response) return;
+
             this.setState({
                 bookToEdit: response.data.book,
                 isBookToEditLoaded: true

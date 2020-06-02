@@ -10,20 +10,23 @@ class Books extends Component {
     }
 
     deleteBook = (bookToDeleteId) => {
-        console.log(bookToDeleteId);
         if (window.confirm('Are you sure you want to delete this book?')) {
             axios.post('/api/books/delete', {
                 id: bookToDeleteId
-            });
+            }).then(response => {
+                if (!response) return;
 
-            this.setState({
-                books: this.state.books.filter(book => book.id !== bookToDeleteId)
+                this.setState({
+                    books: this.state.books.filter(book => book.id !== bookToDeleteId)
+                });
             });
         }
     }
 
     componentDidMount = () => {
-        axios.get('/api/books').then(response => {
+        axios.post('/api/books').then(response => {
+            if (!response) return;
+
             this.setState({
                 books: response.data.books,
                 booksLoaded: true

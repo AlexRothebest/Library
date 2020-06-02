@@ -22,22 +22,23 @@ namespace Kursach.Controllers
         }
 
         [Route("api/books")]
-        [HttpGet]
-        public IActionResult GetBooks()
+        [HttpPost]
+        public async Task<IActionResult> GetBooks()
         {
             return Json(new {
-                books = _db.Book.ToList()
+                books = await _db.Book.ToListAsync()
             });
         }
 
         [Route("api/books/{Id}")]
-        [HttpGet]
-        public IActionResult GetBook(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetBook(int Id)
         {
             return Json(new {
-                book = _db.Book.Find(Id)
+                book = await _db.Book.FindAsync(Id)
             });
         }
+
 
 /*
         [Route("api/books/create")]
@@ -58,12 +59,13 @@ namespace Kursach.Controllers
         }
 */
 
+
         [Route("api/books/create")]
         [HttpPost]
-        public IActionResult CreateBook(Book BookObj)
+        public async Task<IActionResult> CreateBook(Book BookObj)
         {
-            _db.Book.Add(BookObj);
-            _db.SaveChanges();
+            await _db.Book.AddAsync(BookObj);
+            await _db.SaveChangesAsync();
 
             return Json(new {
                 success = true
@@ -76,6 +78,8 @@ namespace Kursach.Controllers
         {
             int Id = Data.GetProperty("id").GetInt32();
 
+            Console.WriteLine(Id);
+
             Book BookToDelete = _db.Book.Find(Id);
             _db.Book.Remove(BookToDelete);
             _db.SaveChanges();
@@ -87,14 +91,14 @@ namespace Kursach.Controllers
 
         [Route("api/books/edit")]
         [HttpPost]
-        public IActionResult EditBook(Book EditedBook)
+        public async Task<IActionResult> EditBook(Book EditedBook)
         {
-            Book BookToEdit = _db.Book.Find(EditedBook.Id);
+            Book BookToEdit = await _db.Book.FindAsync(EditedBook.Id);
 
             BookToEdit.Name = EditedBook.Name;
             BookToEdit.Author = EditedBook.Author;
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return Json(new {
                 success = true
