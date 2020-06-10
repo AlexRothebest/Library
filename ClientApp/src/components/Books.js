@@ -45,8 +45,9 @@ class Books extends Component {
                         {book.author}
                     </td>
                     <td>
-                        <a onClick={() => this.deleteBook(book.id)} className="button red rm">Delete</a>
-                        <Link to={`/books/${book.id}/edit`}><a className="button green">Edit</a></Link>
+                        <Link to={`/books/${book.id}/read`}><a className="button blue">Read</a></Link>
+                        <Link to={`/books/${book.id}/edit`}><a className="button green lm">Edit</a></Link>
+                        <a onClick={() => this.deleteBook(book.id)} className="button red lm">Delete</a>
                     </td>
                 </tr>
             )
@@ -63,12 +64,14 @@ class Books extends Component {
                     </div>
 
                     <table className="all-width">
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Author</th>
                                 <th>Actions</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {books}
                         </tbody>
                     </table>
@@ -77,7 +80,9 @@ class Books extends Component {
                 <main>
                     <div className="flex space-between">
                         <h1>No books available</h1>
-                        <h3><a href="/books/create" className="button blue">Add a new book</a></h3>
+                        <Link to="/books/create">
+                            <h3><button className="blue">Add a new book</button></h3>
+                        </Link>
                     </div>
                 </main>
             )

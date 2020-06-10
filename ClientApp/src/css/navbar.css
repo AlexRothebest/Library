@@ -1,16 +1,21 @@
 nav {
-    position: sticky;
+	display: flex;
+	justify-content: space-between;
 
-    top: 0;
+	position: sticky;
+	top: 0;
 
 	border-bottom: 1px solid black;
-	
+
 	background-color: white;
 }
 
 
 nav ul {
-    margin: 0;
+	display: inline-flex;
+
+	margin: 0;
+	padding: 0;
 }
 
 
@@ -30,7 +35,17 @@ nav li a {
     padding: 15px;
 
     color: black;
-} 
+}
+nav ul li a.active {
+	padding: 15px 14px;
+
+	font-weight: bold;
+}
+nav ul li:hover a {
+	padding-bottom: 12px;
+
+	border-bottom: 3px solid black;
+}
 
 
 

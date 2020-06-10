@@ -5,6 +5,7 @@ import Main from './Main';
 
 import './css/index.css';
 import './css/navbar.css';
+import './css/form.css';
 
 
 ReactDOM.render(<Main />, document.getElementById('root'));

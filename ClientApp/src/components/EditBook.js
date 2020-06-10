@@ -54,9 +54,7 @@ class EditBook extends Component {
 
                     <form onSubmit={this.editBook}>
                         <input type="text" name="name" placeholder="Name" defaultValue={this.state.bookToEdit.name} required />
-                        <br />
                         <input type="text" name="author" placeholder="Author" defaultValue={this.state.bookToEdit.author} required />
-                        <br />
 
                         <button className="tm">Edit a book</button>
                     </form>

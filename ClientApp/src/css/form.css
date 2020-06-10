@@ -1,0 +1,17 @@
+﻿form input {
+    display: block;
+    margin: 20px 0;
+    padding: 15px 20px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+form input:hover:not(:focus) {
+    transform: scale(1.05);
+}
+
+form.form-centered {
+    left: 50%;
+}

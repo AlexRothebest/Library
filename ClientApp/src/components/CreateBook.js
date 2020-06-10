@@ -12,13 +12,19 @@ class CreateBook extends Component {
         event.preventDefault();
 
         let form = event.target;
+        let formData = new FormData();
 
-        let name = form.querySelector('input[name="name"]').value;
-        let author = form.querySelector('input[name="author"]').value;
+        formData.set('name', form.querySelector('input[name="name"]').value);
+        formData.set('author', form.querySelector('input[name="author"]').value);
+        formData.append('bookFile', form.querySelector('input[name="bookFile"]').files[0]);
 
-        axios.post('/api/books/create', {
-            name: name,
-            author: author
+        axios({
+            method: 'post',
+            url: '/api/books/create',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         }).then(response => {
             if (!response) return;
 
@@ -37,9 +43,8 @@ class CreateBook extends Component {
 
                 <form onSubmit={this.createNewBook}>
                     <input type="text" name="name" placeholder="Name" required />
-                    <br />
                     <input type="text" name="author" placeholder="Author" required />
-                    <br />
+                    <input type="file" accept=".pdf" name="bookFile" placeholder="PDF file with the book" required />
 
                     <button className="tm">Add a book</button>
                 </form>
