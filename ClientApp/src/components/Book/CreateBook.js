@@ -15,7 +15,7 @@ class CreateBook extends Component {
         let formData = new FormData();
 
         formData.set('name', form.querySelector('input[name="name"]').value);
-        formData.set('author', form.querySelector('input[name="author"]').value);
+        formData.set('authorName', form.querySelector('input[name="author"]').value);
         formData.append('bookFile', form.querySelector('input[name="bookFile"]').files[0]);
 
         axios({
@@ -38,7 +38,7 @@ class CreateBook extends Component {
         return (this.state.isFormSubmitted) ? (
             <Redirect to='/books' />
         ) : (
-            <main>
+            <div>
                 <h1>Add a new book</h1>
 
                 <form onSubmit={this.createNewBook}>
@@ -48,7 +48,7 @@ class CreateBook extends Component {
 
                     <button className="tm">Add a book</button>
                 </form>
-            </main>
+            </div>
         )
     }
 }

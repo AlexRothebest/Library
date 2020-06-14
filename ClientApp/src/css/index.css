@@ -37,18 +37,31 @@ a[href] {
 }
 
 
+.inline {
+    display: inline-block;
+}
+
+
 table {
     border-bottom: 1px solid black;
     border-collapse: collapse;
 }
 table tr {
     display: inline-grid;
-    grid-template-columns: 25% 25% 50%;
 
     border-top: 1px solid black;
     border-left: 1px solid black;
     border-collapse: collapse;
     width: 100%;
+}
+table.books-table tr {
+/*    grid-template-columns: 25% 25% 50%;*/
+    grid-template-columns: 40% 60%;
+}
+table.collections-table tr,
+table.authors-table tr
+{
+    grid-template-columns: 40% 60%;
 }
 table.all-width {
     width: 100%;
@@ -148,7 +161,13 @@ a.button.blue:hover {
     color: white;
 }
 
-iframe {
+.book-info-container {
+    max-width: 30%;
+    overflow: visible;
+}
+
+iframe,
+canvas {
     position: absolute;
 
     right: 18%;

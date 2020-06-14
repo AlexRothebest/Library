@@ -16,12 +16,10 @@ class EditBook extends Component {
         let form = event.target;
 
         let name = form.querySelector('input[name="name"]').value;
-        let author = form.querySelector('input[name="author"]').value;
 
         axios.post('/api/books/edit', {
             id: this.state.bookToEdit.id,
-            name: name,
-            author: author
+            name: name
         }).then(response => {
             if (!response) return;
 
@@ -49,20 +47,19 @@ class EditBook extends Component {
             <Redirect to='/books' />
         ) : (
             (this.state.isBookToEditLoaded) ? (
-                <main>
+                <div>
                     <h1>Edit a book</h1>
 
                     <form onSubmit={this.editBook}>
                         <input type="text" name="name" placeholder="Name" defaultValue={this.state.bookToEdit.name} required />
-                        <input type="text" name="author" placeholder="Author" defaultValue={this.state.bookToEdit.author} required />
 
                         <button className="tm">Edit a book</button>
                     </form>
-                </main>
+                </div>
             ) : (
-                <main>
+                <div>
                     <h1>Loading book data...</h1>
-                </main>
+                </div>
             )
         )
     }

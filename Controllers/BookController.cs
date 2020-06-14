@@ -1,36 +1,37 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-
-using Kursach.Models;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Kursach.Models;
 
 namespace Kursach.Controllers
 {
     [ApiController]
     public class BookController : Controller
     {
-        private readonly ApplicationDBContext _db;
+        private readonly ApplicationDBContext db;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public BookController(ApplicationDBContext db, IWebHostEnvironment webHostEnvironment)
         {
-            _db = db;
+            this.db = db;
             _webHostEnvironment = webHostEnvironment;
         }
+
 
         [Route("api/books")]
         [HttpPost]
         public async Task<IActionResult> GetBooks()
         {
-            return Json(new {
-                books = await _db.Book.ToListAsync()
+            return Json(new
+            {
+                books = await db.Books.ToListAsync()
             });
         }
 
@@ -39,18 +40,43 @@ namespace Kursach.Controllers
         public async Task<IActionResult> GetBook(string Id)
         {
             return Json(new {
-                book = await _db.Book.FindAsync(Id)
+                book = await db.Books.FindAsync(Id)
             });
         }
-
 
         [Route("api/books/create")]
         [HttpPost]
         public IActionResult CreateBook([FromForm] string name,
-                                        [FromForm] string author,
+                                        [FromForm] string authorName,
                                         [FromForm] IFormFile bookFile)
         {
-            Book NewBook = new Book(name, author);
+            Author author;
+            List<Author> AuthorsWithSameName = db.Authors.Where(author => author.Name == authorName).ToList();
+            if (AuthorsWithSameName.Count == 0)
+            {
+                author = new Author
+                {
+                    Name = authorName
+                };
+            }
+            else
+            {
+                author = AuthorsWithSameName.FirstOrDefault();
+            }
+
+            Book NewBook = new Book
+            {
+                Name = name,
+                Author = author
+            };
+
+            AuthorBook NewAuthorBook = new AuthorBook
+            {
+                Author = author,
+                Book = NewBook
+            };
+
+            db.AuthorBooks.Add(NewAuthorBook);
 
             string FileName = NewBook.Id + "_" + name + ".pdf";
             string FilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "BookCatalog", FileName);
@@ -59,8 +85,8 @@ namespace Kursach.Controllers
             NewBook.FileName = FileName;
             NewBook.FilePath = FilePath;
 
-            _db.Book.Add(NewBook);
-            _db.SaveChanges();
+            db.Books.Add(NewBook);
+            db.SaveChanges();
 
             return Json(new {
                 success = true
@@ -72,8 +98,8 @@ namespace Kursach.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook(Book BookObj)
         {
-            await _db.Book.AddAsync(BookObj);
-            await _db.SaveChangesAsync();
+            await db.Books.AddAsync(BookObj);
+            await db.SaveChangesAsync();
 
             return Json(new {
                 success = true
@@ -85,12 +111,11 @@ namespace Kursach.Controllers
         [HttpPost]
         public async Task<IActionResult> EditBook(JsonElement Data)
         {
-            Book BookToEdit = await _db.Book.FindAsync(Data.GetProperty("id").GetString());
+            Book BookToEdit = await db.Books.FindAsync(Data.GetProperty("id").GetString());
 
             BookToEdit.Name = Data.GetProperty("name").GetString();
-            BookToEdit.Author = Data.GetProperty("author").GetString();
 
-            await _db.SaveChangesAsync();
+            await db.SaveChangesAsync();
 
             return Json(new {
                 success = true
@@ -103,11 +128,9 @@ namespace Kursach.Controllers
         {
             string Id = Data.GetProperty("id").GetString();
 
-            Console.WriteLine(Id);
-
-            Book BookToDelete = _db.Book.Find(Id);
-            _db.Book.Remove(BookToDelete);
-            _db.SaveChanges();
+            Book BookToDelete = db.Books.Find(Id);
+            db.Books.Remove(BookToDelete);
+            db.SaveChanges();
 
             return Json(new
             {

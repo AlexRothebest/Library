@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Kursach.Models
 {
-    public class Book
+    public class Collection
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
@@ -12,23 +14,14 @@ namespace Kursach.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public Author Author { get; set; }
-
-        [Required]
-        public string FileName { get; set; }
-        [Required]
-        public string FilePath { get; set; }
-
         //public IList<CollectionBook> CollectionBooks { get; set; } = new List<CollectionBook>();
 
 
-        public Book(){}
+        public Collection(){}
 
-        public Book(string Name, Author Author)
+        public Collection(string Name)
         {
             this.Name = Name;
-            this.Author = Author;
         }
     }
 }

@@ -6,7 +6,7 @@ import axios from 'axios';
 class Books extends Component {
     state = {
         books: [],
-        booksLoaded: false
+        dataLoaded: false
     }
 
     deleteBook = (bookToDeleteId) => {
@@ -29,7 +29,7 @@ class Books extends Component {
 
             this.setState({
                 books: response.data.books,
-                booksLoaded: true
+                dataLoaded: true
             });
         });
     }
@@ -41,9 +41,11 @@ class Books extends Component {
                     <td>
                         {book.name}
                     </td>
+                    {/*
                     <td>
                         {book.author}
                     </td>
+                    */}
                     <td>
                         <Link to={`/books/${book.id}/read`}><a className="button blue">Read</a></Link>
                         <Link to={`/books/${book.id}/edit`}><a className="button green lm">Edit</a></Link>
@@ -53,9 +55,9 @@ class Books extends Component {
             )
         });
 
-        return (this.state.booksLoaded) ? (
+        return (this.state.dataLoaded) ? (
             (books.length > 0) ? (
-                <main>
+                <div>
                     <div className="flex space-between">
                         <h1>List of books</h1>
                         <Link to="/books/create">
@@ -63,11 +65,11 @@ class Books extends Component {
                         </Link>
                     </div>
 
-                    <table className="all-width">
+                    <table className="all-width books-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Author</th>
+                                {/*<th>Author</th>*/}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -75,21 +77,21 @@ class Books extends Component {
                             {books}
                         </tbody>
                     </table>
-                </main>
+                </div>
             ) : (
-                <main>
+                <div>
                     <div className="flex space-between">
-                        <h1>No books available</h1>
+                        <h1>No books</h1>
                         <Link to="/books/create">
                             <h3><button className="blue">Add a new book</button></h3>
                         </Link>
                     </div>
-                </main>
+                </div>
             )
         ) : (
-            <main className="flex center">
-                <h1>Loading book info...</h1>
-            </main>
+            <div className="flex center">
+                <h1>Loading books...</h1>
+            </div>
         )
     }
 }

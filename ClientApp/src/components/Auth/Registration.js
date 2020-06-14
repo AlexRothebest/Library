@@ -21,7 +21,7 @@ class Registration extends Component {
 
     render = () => {
         return (
-            <main>
+            <div>
                 <h1>Registration</h1>
 
                 <form className="form-centered" onSubmit={this.registerUser}>
@@ -30,7 +30,7 @@ class Registration extends Component {
 
                     <button>Register</button>
                 </form>
-            </main>
+            </div>
         )
     }
 }
