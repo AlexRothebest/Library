@@ -18,14 +18,12 @@ namespace Kursach.Models
                 .HasKey(ab => new { ab.AuthorId, ab.BookId });
 
             //modelBuilder.Entity<CollectionBook>()
-            //    .HasOne(x => x.Book)
-            //    .WithMany(x => x.CollectionBooks)
-            //    .HasForeignKey(x => x.BookId);
+            //    .HasOne(cb => cb.Collection)
+            //    .WithMany(c => c.CollectionBooks);
 
             //modelBuilder.Entity<CollectionBook>()
-            //   .HasOne(x => x.Collection)
-            //   .WithMany(x => x.CollectionBooks)
-            //   .HasForeignKey(x => x.CollectionId);
+            //    .HasOne(cb => cb.Book)
+            //    .WithMany(c => c.CollectionBooks);
 
             base.OnModelCreating(modelBuilder);
         }
